@@ -27,6 +27,10 @@ public:
 	uint32_t get_month() const;
 	uint32_t get_year() const;
 	bool operator<(const Date&) const;
+	bool operator==(const Date&) const;
+	bool operator<=(const Date&) const;
+	uint32_t operator-(const Date&) const;
+
 	Date next_day() const;
 	friend std::istream& operator>>(std::istream&, Date&);
 };
