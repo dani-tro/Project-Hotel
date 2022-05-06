@@ -34,7 +34,7 @@ void Vector<T>::resize(size_t new_capacity)
 {
 	Vector copy{ *this };
 	delete[] data;
-	capacity = new_capacity;
+	set_capacity(new_capacity);
 	data = new T[capacity];
 	std::copy(copy.data, copy.data + size, data);
 	return;
