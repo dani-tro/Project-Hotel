@@ -12,7 +12,7 @@ constexpr uint32_t number_of_days_non_leap_year = 365;
 
 class Date
 {
-public:
+private:
 	uint32_t day = 1;
 	uint32_t month = 1;
 	uint32_t year = 1950;
@@ -22,6 +22,10 @@ public:
 public:
 	Date() = default;
 	Date(uint32_t, uint32_t, uint32_t);
+	
+	uint32_t get_day() const;
+	uint32_t get_month() const;
+	uint32_t get_year() const;
 	bool operator<(const Date&) const;
 	Date next_day() const;
 	friend std::istream& operator>>(std::istream&, Date&);
