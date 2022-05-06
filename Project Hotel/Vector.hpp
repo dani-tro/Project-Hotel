@@ -15,11 +15,12 @@ private:
 	void resize(size_t);
 	void set_capacity(size_t);
 	void set_size(size_t);
+	void swap(Vector&);
 public:
 	Vector() = default;
 	~Vector();
 	Vector(const Vector&);
-	void swap(Vector&);
+	
 	Vector& operator=(const Vector&);
 
 	size_t get_capacity();
