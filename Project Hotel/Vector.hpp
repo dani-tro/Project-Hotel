@@ -23,7 +23,7 @@ public:
 	
 	Vector& operator=(const Vector&);
 
-	size_t get_capacity();
+	size_t get_capacity() const;
 	size_t get_size() const;
 	T& operator[](size_t idx);
 	void push_back(const T&);
@@ -83,7 +83,7 @@ Vector<T>& Vector<T>::operator=(const Vector& other)
 }
 
 template<typename T>
-size_t Vector<T>::get_capacity()
+size_t Vector<T>::get_capacity() const
 {
 	return capacity;
 }
