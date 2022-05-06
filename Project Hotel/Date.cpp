@@ -5,9 +5,9 @@ uint32_t Date::get_days_since_1950() const
 {
 	uint32_t days_since_1950 = day;
 	if (is_leap_year(year))
-		for (int i = 1; i < month; i++)days_since_1950 += days_of_month_leap_year[i];
-	else for (int i = 1; i < month; i++)days_since_1950 += days_of_month_non_leap_year[i];
-	for (int i = 1950; i < year; i++)
+		for (uint32_t i = 1; i < month; i++)days_since_1950 += days_of_month_leap_year[i];
+	else for (uint32_t i = 1; i < month; i++)days_since_1950 += days_of_month_non_leap_year[i];
+	for (uint32_t i = 1950; i < year; i++)
 	{
 		if (is_leap_year(i))days_since_1950 += number_of_days_leap_year;
 		else days_since_1950 += number_of_days_non_leap_year;
@@ -58,8 +58,8 @@ bool Date::operator<=(const Date& other) const
 
 uint32_t Date::operator-(const Date& other) const
 {
-	if (other < *this)return 0;
-	return get_days_since_1950() - other.get_days_since_1950();
+	if (*this < other)return 0;
+	return get_days_since_1950() - other.get_days_since_1950() + 1;
 }
 
 Date Date::next_day() const
