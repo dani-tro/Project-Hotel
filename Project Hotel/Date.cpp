@@ -46,6 +46,22 @@ bool Date::operator<(const Date& other) const
 	return get_days_since_1950() < other.get_days_since_1950();
 }
 
+bool Date::operator==(const Date& other) const
+{
+	return (get_day() == other.get_day() && get_month() == other.get_month() && get_year() == other.get_year());
+}
+
+bool Date::operator<=(const Date& other) const
+{
+	return (*this < other || *this == other);
+}
+
+uint32_t Date::operator-(const Date& other) const
+{
+	if (other < *this)return 0;
+	return get_days_since_1950() - other.get_days_since_1950();
+}
+
 Date Date::next_day() const
 {
 	Date next_day = *this;
