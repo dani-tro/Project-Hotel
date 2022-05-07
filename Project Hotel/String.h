@@ -20,13 +20,12 @@ public:
 	String(const String&);
 	String& operator=(const String&);
 	String(const char*);
-	
+
+	void tolower();
 	size_t get_size() const;
 	const char* get_data() const;
 	friend std::istream& getline(std::istream&, String&, const char);
 	friend std::istream& operator>>(std::istream&, String&);
 };
-
-
 
 #endif
