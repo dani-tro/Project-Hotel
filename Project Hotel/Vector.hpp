@@ -28,6 +28,8 @@ public:
 	T& operator[](size_t idx);
 	const T& operator[](size_t idx) const;
 	void push_back(const T&);
+	T* begin() const;
+	T* end() const;
 };
 
 template<typename T>
@@ -116,6 +118,18 @@ void Vector<T>::push_back(const T& other)
 	data[get_size()] = other;
 	set_size(get_size() + 1);
 	return;
+}
+
+template<typename T>
+inline T* Vector<T>::begin() const
+{
+	return data;
+}
+
+template<typename T>
+inline T* Vector<T>::end() const
+{
+	return begin() + get_size();
 }
 
 #endif
