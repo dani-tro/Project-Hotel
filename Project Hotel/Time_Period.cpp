@@ -26,7 +26,6 @@ void Time_Period::set_to(const Date& _to)
 
 uint32_t Time_Period::duration() const
 {
-	std::cout << get_to().get_day() << " " << get_from().get_day() << std::endl;
 	return get_to() - get_from();
 }
 
