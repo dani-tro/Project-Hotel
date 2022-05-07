@@ -75,6 +75,11 @@ const char* String::get_data() const
 	return data;
 }
 
+String::operator const char*() const
+{
+	return data;
+}
+
 std::istream& getline(std::istream& in, String& s, const char delim)
 {
 	char buff;

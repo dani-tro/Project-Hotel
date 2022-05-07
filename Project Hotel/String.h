@@ -26,6 +26,7 @@ public:
 	const char* get_data() const;
 	friend std::istream& getline(std::istream&, String&, const char);
 	friend std::istream& operator>>(std::istream&, String&);
+	operator const char*() const;
 };
 
 #endif
