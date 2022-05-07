@@ -83,6 +83,7 @@ String::operator const char*() const
 std::istream& getline(std::istream& in, String& s, const char delim)
 {
 	char buff;
+	s = String();
 	s.resize(1);
 	while (in.peek() != delim)
 	{
