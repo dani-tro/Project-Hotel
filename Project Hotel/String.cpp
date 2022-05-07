@@ -26,9 +26,9 @@ String::~String()
 
 String::String(const String& other)
 {
-	data = new char[other.size];
-	if(other.get_size() != 0)strcpy(data, other.data);
-	size = other.size;
+	data = new char[other.get_size()];
+	if(other.get_size() != 0)strcpy(data, other.get_data());
+	set_size(other.get_size());
 }
 
 String& String::operator=(const String& other)
@@ -78,6 +78,7 @@ const char* String::get_data() const
 std::istream& getline(std::istream& in, String& s, const char delim)
 {
 	char buff;
+	s.resize(1);
 	while (in.peek() != delim)
 	{
 		buff = in.get();
