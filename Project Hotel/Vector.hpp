@@ -26,6 +26,7 @@ public:
 	size_t get_capacity() const;
 	size_t get_size() const;
 	T& operator[](size_t idx);
+	const T& operator[](size_t idx) const;
 	void push_back(const T&);
 };
 
@@ -96,6 +97,13 @@ size_t Vector<T>::get_size() const
 
 template<typename T>
 T& Vector<T>::operator[](size_t idx)
+{
+	assert(idx < get_size() && "Accessing a valid element of the vector!\n");
+	return data[idx];
+}
+
+template<typename T>
+inline const T& Vector<T>::operator[](size_t idx) const
 {
 	assert(idx < get_size() && "Accessing a valid element of the vector!\n");
 	return data[idx];
