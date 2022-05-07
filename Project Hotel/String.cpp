@@ -27,9 +27,8 @@ String::~String()
 String::String(const String& other)
 {
 	data = new char[other.size];
-	strcpy(data, other.data);
+	if(other.get_size() != 0)strcpy(data, other.data);
 	size = other.size;
-
 }
 
 String& String::operator=(const String& other)
