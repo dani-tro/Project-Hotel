@@ -75,6 +75,26 @@ const char* String::get_data() const
 	return data;
 }
 
+void String::read_string_from_file(std::fstream& file)
+{
+	file.read(reinterpret_cast<char*>(&size), sizeof(size_t));
+	char* buff = new char[get_size() + 1];
+	file.read(buff, get_size());
+	buff[get_size()] = '\0';
+	set_data(buff);
+}
+
+void String::write_string_to_file(std::fstream& file)
+{
+	file.write(reinterpret_cast<const char*>(&size), sizeof(size_t));
+	file.write(*this, get_size());
+}
+
+String::operator char* () const
+{
+	return data;
+}
+
 String::operator const char*() const
 {
 	return data;
