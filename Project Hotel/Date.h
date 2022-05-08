@@ -33,6 +33,8 @@ public:
 
 	Date next_day() const;
 	friend std::istream& operator>>(std::istream&, Date&);
+	void read_date_from_file(std::fstream&);
+	void write_date_to_file(std::fstream&);
 };
 
 bool is_leap_year(uint32_t);

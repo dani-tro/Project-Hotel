@@ -90,6 +90,20 @@ Date Date::next_day() const
 	return next_day;
 }
 
+void Date::read_date_from_file(std::fstream& file)
+{
+	file.read(reinterpret_cast<char*>(&day), sizeof(uint32_t));
+	file.read(reinterpret_cast<char*>(&month), sizeof(uint32_t));
+	file.read(reinterpret_cast<char*>(&year), sizeof(uint32_t));
+}
+
+void Date::write_date_to_file(std::fstream& file)
+{
+	file.write(reinterpret_cast<const char*>(&day), sizeof(uint32_t));
+	file.write(reinterpret_cast<const char*>(&month), sizeof(uint32_t));
+	file.write(reinterpret_cast<const char*>(&year), sizeof(uint32_t));
+}
+
 
 std::istream& operator>>(std::istream& in, Date& date)
 {
