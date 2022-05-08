@@ -30,6 +30,7 @@ public:
 	void write_string_to_file(std::fstream&);
 	operator char* () const;
 	operator const char*() const;
+	bool operator==(const char*);
 
 };
 

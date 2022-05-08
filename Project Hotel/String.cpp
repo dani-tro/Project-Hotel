@@ -100,6 +100,14 @@ String::operator const char*() const
 	return data;
 }
 
+bool String::operator==(const char* other)
+{
+	if (get_size() == 0 && strlen(other) == 0)return true;
+	if(get_size() - 1 != strlen(other))return false;
+	for (int i = 0; i < get_size(); i++)if (data[i] != other[i])return false;
+	return true;
+}
+
 std::istream& getline(std::istream& in, String& s, const char delim)
 {
 	char buff;
