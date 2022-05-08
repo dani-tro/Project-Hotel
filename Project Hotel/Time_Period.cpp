@@ -29,6 +29,18 @@ uint32_t Time_Period::duration() const
 	return get_to() - get_from();
 }
 
+void Time_Period::read_period_from_file(std::fstream& file)
+{
+	from.read_date_from_file(file);
+	to.read_date_from_file(file);
+}
+
+void Time_Period::write_period_to_file(std::fstream& file)
+{
+	from.write_date_to_file(file);
+	to.write_date_to_file(file);
+}
+
 Time_Period intersect(const Time_Period& lhs, const Time_Period& rhs)
 {
 	Time_Period intersection;

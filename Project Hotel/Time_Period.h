@@ -16,6 +16,8 @@ public:
 	void set_from(const Date&);
 	void set_to(const Date&);
 	uint32_t duration() const;
+	void read_period_from_file(std::fstream&);
+	void write_period_to_file(std::fstream&);
 };
 
 Time_Period intersect(const Time_Period&, const Time_Period&);
