@@ -25,12 +25,12 @@ public:
 	size_t get_size() const;
 	const char* get_data() const;
 	friend std::istream& getline(std::istream&, String&, const char);
-	friend std::istream& operator>>(std::istream&, String&);
 	void read_string_from_file(std::fstream&);
 	void write_string_to_file(std::fstream&);
 	operator char* () const;
 	operator const char*() const;
-	bool operator==(const char*);
+	bool operator==(const String&) const;
+	bool operator==(const char*) const;
 
 };
 

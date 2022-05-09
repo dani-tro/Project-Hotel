@@ -12,7 +12,7 @@ void String::swap(String& other)
 void String::resize(size_t increment)
 {
 	char* copy = new char[get_size() + increment + 1];
-	if (get_size() != 0)strcpy(copy, data);
+	if (data != nullptr)strcpy(copy, data);
 	copy[get_size()] = '\0';
 	delete[] data;
 	set_data(copy);
@@ -26,8 +26,13 @@ String::~String()
 
 String::String(const String& other)
 {
-	data = new char[other.get_size()];
-	if(other.get_size() != 0)strcpy(data, other.get_data());
+	if (other.get_data() != nullptr)
+	{
+		data = new char[other.get_size() + 1];
+		strcpy(data, other.get_data());
+		data[other.get_size()] = '\0';
+	}
+	else set_data(nullptr);
 	set_size(other.get_size());
 }
 
@@ -90,7 +95,7 @@ void String::write_string_to_file(std::fstream& file)
 	file.write(*this, get_size());
 }
 
-String::operator char* () const
+String::operator char*() const
 {
 	return data;
 }
@@ -100,10 +105,16 @@ String::operator const char*() const
 	return data;
 }
 
-bool String::operator==(const char* other)
+bool String::operator==(const String& other) const
 {
-	if (get_size() == 0 && strlen(other) == 0)return true;
-	if(get_size() - 1 != strlen(other))return false;
+	if (get_size() != other.get_size())return false;
+	for (int i = 0; i < get_size(); i++)if (data[i] != other.data[i])return false;
+	return true;
+}
+
+bool String::operator==(const char* other) const
+{
+	if(get_size() != strlen(other))return false;
 	for (int i = 0; i < get_size(); i++)if (data[i] != other[i])return false;
 	return true;
 }
@@ -112,19 +123,13 @@ std::istream& getline(std::istream& in, String& s, const char delim)
 {
 	char buff;
 	s = String();
-	s.resize(1);
 	while (in.peek() != delim)
 	{
+		
 		buff = in.get();
 		s.resize(1);
 		strncat(s.data, &buff, 1);
 	}
 	in.get();
-	return in;
-}
-
-std::istream& operator>>(std::istream& in, String& s)
-{
-	getline(in, s, ' ');
 	return in;
 }
