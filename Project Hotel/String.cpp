@@ -80,8 +80,9 @@ const char* String::get_data() const
 	return data;
 }
 
-void String::read_string_from_file(std::fstream& file)
+void String::read_string_from_file(std::fstream& file, int position)
 {
+	file.seekg(position);
 	file.read(reinterpret_cast<char*>(&size), sizeof(size_t));
 	char* buff = new char[get_size() + 1];
 	file.read(buff, get_size());
@@ -89,8 +90,9 @@ void String::read_string_from_file(std::fstream& file)
 	set_data(buff);
 }
 
-void String::write_string_to_file(std::fstream& file)
+void String::write_string_to_file(std::fstream& file, int position) const
 {
+	file.seekp(position);
 	file.write(reinterpret_cast<const char*>(&size), sizeof(size_t));
 	file.write(*this, get_size());
 }
@@ -121,11 +123,10 @@ bool String::operator==(const char* other) const
 
 std::istream& getline(std::istream& in, String& s, const char delim)
 {
-	char buff;
+	char buff = in.peek();
 	s = String();
 	while (in.peek() != delim)
 	{
-		
 		buff = in.get();
 		s.resize(1);
 		strncat(s.data, &buff, 1);
@@ -133,3 +134,10 @@ std::istream& getline(std::istream& in, String& s, const char delim)
 	in.get();
 	return in;
 }
+
+std::istream& operator>>(std::istream& in, String& string)
+{
+	getline(in, string, '\n');
+	return in;
+}
+
