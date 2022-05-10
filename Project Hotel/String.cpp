@@ -70,6 +70,18 @@ void String::tolower()
 	return;
 }
 
+void String::strcat(const String& other)
+{
+	if (other.get_data() != nullptr)
+	{
+		
+		resize(other.get_size());
+		std::strcat(data, other.data);
+		data[get_size()] = '\0';
+	}
+	return;
+}
+
 size_t String::get_size() const
 {
 	return size;
