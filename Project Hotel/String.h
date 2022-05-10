@@ -33,6 +33,7 @@ public:
 	operator const char*() const;
 	bool operator==(const String&) const;
 	bool operator==(const char*) const;
+	bool operator!=(const char*) const;
 };
 
 

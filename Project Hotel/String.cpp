@@ -74,7 +74,6 @@ void String::strcat(const String& other)
 {
 	if (other.get_data() != nullptr)
 	{
-		
 		resize(other.get_size());
 		std::strcat(data, other.data);
 		data[get_size()] = '\0';
@@ -131,6 +130,11 @@ bool String::operator==(const char* other) const
 	if(get_size() != strlen(other))return false;
 	for (int i = 0; i < get_size(); i++)if (data[i] != other[i])return false;
 	return true;
+}
+
+bool String::operator!=(const char* other) const
+{
+	return !(*this == other);
 }
 
 std::istream& getline(std::istream& in, String& s, const char delim)
