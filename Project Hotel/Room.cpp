@@ -1,6 +1,6 @@
 #include "Room.h"
 
-bool Room::is_closed_during(const Time_Period& period, std::fstream& file) const
+int32_t Room::is_closed_during(const Time_Period& period, std::fstream& file) const
 {
     Closure closure;
     uint8_t closure_type;
@@ -9,14 +9,13 @@ bool Room::is_closed_during(const Time_Period& period, std::fstream& file) const
         file.seekg(closures_indexes_in_file_list[i]);
         file.read(reinterpret_cast<char*>(&closure_type), sizeof(uint8_t));
         closure.read_closure_from_file(file, file.tellg());
-        if (intersect(closure.get_period(), period).duration() > 0) return true;
+        if (intersect(closure.get_period(), period).duration() > 0) return closures_indexes_in_file_list[i];
     }
-    return false;
+    return -1;
 }
 
-bool Room::is_occupied_during(const Time_Period& period, std::fstream& file) const
+int32_t Room::is_occupied_during(const Time_Period& period, std::fstream& file) const
 {
-
     Accommodation accommodation;
     uint8_t accommodation_type;
     for (size_t i = 0; i < accommodations_indexes_in_file_list.get_size(); i++)
@@ -24,15 +23,15 @@ bool Room::is_occupied_during(const Time_Period& period, std::fstream& file) con
         file.seekg(accommodations_indexes_in_file_list[i]);
         file.read(reinterpret_cast<char*>(&accommodation_type), sizeof(uint8_t));
         accommodation.read_accommodation_from_file(file, file.tellg());
-        if (intersect(accommodation.get_period(), period).duration() > 0) return true;
+        if (intersect(accommodation.get_period(), period).duration() > 0) return accommodations_indexes_in_file_list[i];
     }
-    return false;
+    return -1;
 }
 
 Condition Room::is_available_during(const Time_Period& period, std::fstream& file) const
 {
-    if (is_closed_during(period, file))return Condition::Closed;
-    if (is_occupied_during(period, file))return Condition::Occupied;
+    if (is_closed_during(period, file) != -1)return Condition::Closed;
+    if (is_occupied_during(period, file) != -1)return Condition::Occupied;
     return Condition::Available;
 }
 

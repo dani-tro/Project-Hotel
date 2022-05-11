@@ -23,8 +23,8 @@ private:
 	Vector<int32_t> closures_indexes_in_file_list;
 
 public:
-	bool is_closed_during(const Time_Period&, std::fstream&) const;
-	bool is_occupied_during(const Time_Period&, std::fstream&) const;
+	int32_t is_closed_during(const Time_Period&, std::fstream&) const;
+	int32_t is_occupied_during(const Time_Period&, std::fstream&) const;
 	Condition is_available_during(const Time_Period&, std::fstream&) const;
 	uint32_t number_of_days_being_occupied_in_period(const Time_Period&, std::fstream&);
 	void read_room_from_file(std::fstream&, int);
