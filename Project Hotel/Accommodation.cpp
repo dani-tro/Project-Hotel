@@ -61,7 +61,7 @@ void Accommodation::change_the_departure_date_in_file(std::fstream& file, int32_
 
 void Accommodation::save(std::fstream& file) const
 {
-	write_accommodation_to_file(file, file.std::ios::end);
+	write_accommodation_to_file(file, file.tellp());
 	std::cout << "The reservation for " << get_guest_name() << " from " << get_from() << " to " << get_to() << " has been saved successfully!\n";
 	if(note.get_data() != nullptr)std::cout << "There is a note for the reservation: " << note << std::endl;
 	return;

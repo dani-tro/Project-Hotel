@@ -58,7 +58,7 @@ std::istream& operator>>(std::istream& in, Closure& closure)
 
 void Closure::save(std::fstream& file) const
 {
-	write_closure_to_file(file, file.std::ios::end);
+	write_closure_to_file(file, file.tellp());
 	std::cout << "The information about closing room #" << get_room_number() << " from " << get_from() << " to " << get_to() << " has been saved successfully!\n";
 	if (note.get_data() != nullptr)std::cout << "The reason for the closing is: " << note << std::endl;
 	return;
