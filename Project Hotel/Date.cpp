@@ -90,29 +90,57 @@ Date Date::next_day() const
 	return next_day;
 }
 
-void Date::read_date_from_file(std::fstream& file)
+void Date::read_date_from_file(std::fstream& file, int position)
 {
+	file.seekg(position);
 	file.read(reinterpret_cast<char*>(&day), sizeof(uint32_t));
 	file.read(reinterpret_cast<char*>(&month), sizeof(uint32_t));
 	file.read(reinterpret_cast<char*>(&year), sizeof(uint32_t));
 }
 
-void Date::write_date_to_file(std::fstream& file)
+void Date::write_date_to_file(std::fstream& file, int position) const
 {
+	file.seekp(position);
 	file.write(reinterpret_cast<const char*>(&day), sizeof(uint32_t));
 	file.write(reinterpret_cast<const char*>(&month), sizeof(uint32_t));
 	file.write(reinterpret_cast<const char*>(&year), sizeof(uint32_t));
 }
 
+String Date::to_String() const
+{
+	char to_char[11];
+	to_char[0] = '0' + get_year() / 1000;
+	to_char[1] = '0' + (get_year() / 100) % 10;
+	to_char[2] = '0' + (get_year() / 10) % 10;
+	to_char[3] = '0' + get_year() % 10;
+	to_char[4] = '-';
+	to_char[5] = '0' + get_month() / 10;
+	to_char[6] = '0' + get_month() % 1000;
+	to_char[7] = '-';
+	to_char[8] = '0' + get_day() / 10;
+	to_char[9] = '0' + get_day() % 10;
+	to_char[10] = '\0';
+	String string = to_char;
+	return string;
+}
 
 std::istream& operator>>(std::istream& in, Date& date)
 {
 	uint32_t day, month, year;
 	char buf;
 	in >> day >> buf >> month >> buf >> year;
+	in.get();
 	date = Date(day, month, year);
 	return in;
 }
+
+std::ostream& operator<<(std::ostream& out, const Date& date)
+{
+	out << date.get_day() << "." << date.get_month() << "." << date.get_year();
+	return out;
+}
+
+
 
 bool is_leap_year(uint32_t year)
 {

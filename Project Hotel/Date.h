@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "String.h"
 
 constexpr uint32_t days_of_month_leap_year[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 constexpr uint32_t days_of_month_non_leap_year[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -33,8 +34,12 @@ public:
 
 	Date next_day() const;
 	friend std::istream& operator>>(std::istream&, Date&);
-	void read_date_from_file(std::fstream&);
-	void write_date_to_file(std::fstream&);
+	void read_date_from_file(std::fstream&, int);
+	void write_date_to_file(std::fstream&, int) const;
+	friend std::istream& operator>>(std::istream&, Date&);
+	friend std::ostream& operator<<(std::ostream&, const Date&); 
+	String to_String() const;
+
 };
 
 bool is_leap_year(uint32_t);
