@@ -53,6 +53,12 @@ void Accommodation::write_accommodation_to_file(std::fstream& file, int position
 	note.write_string_to_file(file, file.tellp());
 }
 
+void Accommodation::change_the_departure_date_in_file(std::fstream& file, int32_t file_pos, const Date& date)
+{
+	date.write_date_to_file(file, file_pos + position_of_to_date_in_file);
+	return;
+}
+
 void Accommodation::save(std::fstream& file) const
 {
 	write_accommodation_to_file(file, file.std::ios::end);

@@ -4,6 +4,8 @@
 #include "Time_Period.h"
 #include "String.h"
 
+constexpr int32_t position_of_to_date_in_file = 17; // sizeof(uint8_t) + sizeof(uint32_t) + sizeof(Date) 
+
 class Accommodation
 {
 private:
@@ -22,6 +24,7 @@ public:
 	void read_accommodation_from_file(std::fstream&, int);
 	void write_accommodation_to_file(std::fstream&, int) const;
 	friend std::istream& operator>>(std::istream&, Accommodation&);
+	void change_the_departure_date_in_file(std::fstream&, int32_t, const Date&);
 	void save(std::fstream&) const;
 };
 
