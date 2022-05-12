@@ -17,13 +17,15 @@ uint32_t Date::get_days_since_1950() const
 
 Date::Date(uint32_t _day, uint32_t _month, uint32_t _year) : day{ _day }, month{ _month }, year{ _year }
 {
-	if (year < 1950 || year > 10000)year = 1950;
-	if (month < 1 || month > 12)month = 1;
+	if (year < 1950 || year >= 10000 || month < 1 || month > 12)
+	{
+		throw(1);
+	}
 	if (is_leap_year(year))
 	{
-		if (day < 1 || day > days_of_month_leap_year[month - 1])day = 1;
+		if (day < 1 || day > days_of_month_leap_year[month - 1])throw(1);
 	}
-	else if (day < 1 || day > days_of_month_non_leap_year[month - 1])day = 1;
+	else if (day < 1 || day > days_of_month_non_leap_year[month - 1])throw(1);
 }
 
 uint32_t Date::get_day() const
@@ -127,10 +129,18 @@ String Date::to_String() const
 std::istream& operator>>(std::istream& in, Date& date)
 {
 	uint32_t day, month, year;
-	char buf;
-	in >> day >> buf >> month >> buf >> year;
+	char buff;
+	in >> day >> buff >> month >> buff >> year;
 	in.get();
-	date = Date(day, month, year);
+	try
+	{
+		date = Date(day, month, year);
+	}
+	catch (int x)
+	{
+		std::cout << "Invalid date entered! Please, try again: ";
+		std::cin >> date;
+	}
 	return in;
 }
 
