@@ -39,6 +39,11 @@ uint32_t Accommodation::get_number_of_guests() const
 	return number_of_guests;
 }
 
+void Accommodation::set_room_number(uint32_t _room_number)
+{
+	room_number = _room_number;
+}
+
 void Accommodation::read_accommodation_from_file(std::fstream& file, int position)
 {
 	file.seekg(position);
@@ -59,6 +64,13 @@ void Accommodation::write_accommodation_to_file(std::fstream& file, int position
 	period.write_period_to_file(file, file.tellp());
 	guest_name.write_string_to_file(file, file.tellp());
 	note.write_string_to_file(file, file.tellp());
+}
+
+void Accommodation::change_the_room_number_in_file(std::fstream& file, int32_t file_pos, int32_t room_number)
+{
+	file.seekp(file_pos + position_of_room_number_in_file);
+	file.write(reinterpret_cast<const char*>(&room_number), sizeof(uint32_t));
+	return;
 }
 
 void Accommodation::change_the_departure_date_in_file(std::fstream& file, int32_t file_pos, const Date& date)

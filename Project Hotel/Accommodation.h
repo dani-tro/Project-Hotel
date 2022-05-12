@@ -4,13 +4,14 @@
 #include "Time_Period.h"
 #include "String.h"
 
+constexpr int32_t position_of_room_number_in_file = 1; // sizeof(uint8_t)  
 constexpr int32_t position_of_to_date_in_file = 21; // sizeof(uint8_t) + 2 * sizeof(uint32_t) + sizeof(Date) 
 
 class Accommodation
 {
 private:
-	uint32_t room_number;
-	uint32_t number_of_guests;
+	uint32_t room_number = 0;
+	uint32_t number_of_guests = 0;
 	Time_Period period;
 	String guest_name;
 	String note;
@@ -23,9 +24,11 @@ public:
 	const Date& get_from() const;
 	const Date& get_to() const;
 	const String& get_guest_name() const;
+	void set_room_number(uint32_t);
 	void read_accommodation_from_file(std::fstream&, int);
 	void write_accommodation_to_file(std::fstream&, int) const;
 	friend std::istream& operator>>(std::istream&, Accommodation&);
+	void change_the_room_number_in_file(std::fstream&, int32_t, int32_t);
 	void change_the_departure_date_in_file(std::fstream&, int32_t, const Date&);
 	void save(std::fstream&) const;
 };
