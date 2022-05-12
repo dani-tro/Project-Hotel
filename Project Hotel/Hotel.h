@@ -25,8 +25,8 @@ public:
 	void find_a_room();
 	void close_a_room();
 	void print_error_message();
-	int32_t get_the_room_with_the_fewest_beds(uint32_t, Time_Period&);
-	bool is_valid(const Accommodation& );
+	int32_t get_the_room_with_the_fewest_beds(uint32_t, const Time_Period&);
+	bool is_valid(Accommodation& );
 	bool is_valid(const Closure&);
 };
 
