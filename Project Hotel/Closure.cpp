@@ -28,6 +28,11 @@ const Date& Closure::get_to() const
 	return period.get_to();
 }
 
+const String& Closure::get_note() const
+{
+	return note;
+}
+
 void Closure::read_closure_from_file(std::fstream& file, int position)
 {
 	file.seekg(position);
