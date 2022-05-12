@@ -17,14 +17,16 @@ enum class Condition
 class Room
 {
 private:
-	uint32_t room_number;
-	uint32_t number_of_beds;
+	uint32_t room_number = 0;
+	uint32_t number_of_beds = 0;
 	Vector<int32_t> accommodations_indexes_in_file_list;
 	Vector<int32_t> closures_indexes_in_file_list;
-
 public:
+	int32_t is_closed_on(const Date&, std::fstream&) const;
 	int32_t is_closed_during(const Time_Period&, std::fstream&) const;
+	int32_t is_occupied_on(const Date&, std::fstream&) const;
 	int32_t is_occupied_during(const Time_Period&, std::fstream&) const;
+	Condition is_available_on(const Date&, std::fstream&) const;
 	Condition is_available_during(const Time_Period&, std::fstream&) const;
 	uint32_t number_of_days_being_occupied_in_period(const Time_Period&, std::fstream&);
 	void read_room_from_file(std::fstream&, int);
