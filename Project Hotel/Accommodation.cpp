@@ -43,7 +43,7 @@ void Accommodation::read_accommodation_from_file(std::fstream& file, int positio
 {
 	file.seekg(position);
 	file.read(reinterpret_cast<char*> (&room_number), sizeof(uint32_t));
-	file.read(reinterpret_cast<char*>(number_of_guests), sizeof(uint32_t));
+	file.read(reinterpret_cast<char*>(&number_of_guests), sizeof(uint32_t));
 	period.read_period_from_file(file, file.tellg());
 	guest_name.read_string_from_file(file, file.tellg());
 	note.read_string_from_file(file, file.tellg());
