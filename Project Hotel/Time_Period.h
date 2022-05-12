@@ -6,8 +6,8 @@
 class Time_Period
 {
 private:
-	Date from{02, 01, 1950};
-	Date to{01, 01, 1950};
+	Date from{01, 01, 1950};
+	Date to{02, 01, 1950};
 public:
 	Time_Period() = default;
 	Time_Period(const Date&, const Date&);
@@ -18,7 +18,6 @@ public:
 	uint32_t duration() const;
 	void read_period_from_file(std::fstream&, int);
 	void write_period_to_file(std::fstream&, int) const;
-	bool is_valid() const;
 	friend std::istream& operator>>(std::istream&, Time_Period&);
 };
 
