@@ -28,6 +28,8 @@ public:
 	T& operator[](size_t idx);
 	const T& operator[](size_t idx) const;
 	void push_back(const T&);
+	void pop_back();
+	void remove_value_at(uint32_t);
 	T* begin() const;
 	T* end() const;
 };
@@ -117,6 +119,24 @@ void Vector<T>::push_back(const T& other)
 	if (get_size() + 1 > get_capacity())resize(get_capacity() * 2 + 1);
 	data[get_size()] = other;
 	set_size(get_size() + 1);
+	return;
+}
+
+template<typename T>
+void Vector<T>::pop_back()
+{
+	if(get_size() > 0)set_size(get_size() - 1);
+	return;
+} 
+
+template<typename T>
+void Vector<T>::remove_value_at(uint32_t index)
+{
+	for (int i = index; i < get_size() - 1; i++)
+	{
+		data[i] = data[i + 1];
+	}
+	pop_back();
 	return;
 }
 
