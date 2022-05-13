@@ -126,10 +126,6 @@ void Hotel::register_a_guest()
 		rooms[index].add_accommodation_index_to_the_list(file.tellp());
 		accommodation.save(file);
 	}
-	else
-	{
-		std::cout << "Problem\n";
-	}
 }
 
 void Hotel::print_the_free_rooms()
@@ -254,7 +250,8 @@ bool Hotel::is_valid(Accommodation& accommodation)
 	if (closure_index != -1 || accommodation.get_number_of_guests() > rooms[index].get_number_of_beds())
 	{
 		Closure closure;
-		uint8_t closure_type, option;
+		uint8_t closure_type;
+		uint32_t option;
 		file.seekg(closure_index);
 		file.read(reinterpret_cast<char*>(&closure_type), sizeof(uint8_t));
 		closure.read_closure_from_file(file, file.tellg());
@@ -272,6 +269,7 @@ bool Hotel::is_valid(Accommodation& accommodation)
 			std::cout << "2) Cancel the accommodation of " << accommodation.get_guest_name() << std::endl;
 			std::cout << "Enter the number of the option you chose: ";
 			std::cin >> option;
+			std::cin.get();
 			switch (option)
 			{
 				case 2:
@@ -288,11 +286,12 @@ bool Hotel::is_valid(Accommodation& accommodation)
 	if (accommodation_index != -1 && accommodation.get_number_of_guests() <= rooms[index].get_number_of_beds())
 	{
 		Accommodation current_accommodation;
-		uint8_t accommodation_type, option;
+		uint8_t accommodation_type;
+		uint32_t option;
 		file.seekg(accommodation_index);
 		file.read(reinterpret_cast<char*>(&accommodation_type), sizeof(uint8_t));
 		current_accommodation.read_accommodation_from_file(file, file.tellg());
-		std::cout << "There is already a reservation for room#" << accommodation.get_room_number() 
+		std::cout << "There is already a reservation for room #" << accommodation.get_room_number() 
 			<< " under the name of " << current_accommodation.get_guest_name() << " from " 
 			<< current_accommodation.get_from()	<< " to " << current_accommodation.get_to() << std::endl;
 		uint32_t appropriate_room_for_the_new_guests = get_the_room_with_the_fewest_beds(accommodation.get_number_of_guests(), accommodation.get_period());
@@ -316,6 +315,7 @@ bool Hotel::is_valid(Accommodation& accommodation)
 			std::cout << "Cancel the accommodation of " << accommodation.get_guest_name() << std::endl;
 			std::cout << "Enter the number of the option you chose: ";
 			std::cin >> option;
+			std::cin.get();
 			switch(option)
 			{
 				case 3:
@@ -329,21 +329,28 @@ bool Hotel::is_valid(Accommodation& accommodation)
 					}
 					else
 					{
+						current_accommodation.set_room_number(appropriate_room_for_the_old_guests);
 						current_accommodation.change_the_room_number_in_file(file, accommodation_index, appropriate_room_for_the_old_guests);
+						rooms[index].remove_accommodation_index_from_the_list(accommodation_index);
+						rooms[find_the_index_of_room_with_given_number(appropriate_room_for_the_old_guests)].add_accommodation_index_to_the_list(accommodation_index);
 						return true;
 					}
 				case 1:
 					if (appropriate_room_for_the_new_guests == -1)
 					{
+						current_accommodation.set_room_number(appropriate_room_for_the_old_guests);
 						current_accommodation.change_the_room_number_in_file(file, accommodation_index, appropriate_room_for_the_old_guests);
+						rooms[index].remove_accommodation_index_from_the_list(accommodation_index);
+						rooms[find_the_index_of_room_with_given_number(appropriate_room_for_the_old_guests)].add_accommodation_index_to_the_list(accommodation_index);
 						return true;
 					}
-					else if (appropriate_room_for_the_old_guests == -1)
+					else if (appropriate_room_for_the_new_guests != -1)
 					{
 						accommodation.set_room_number(appropriate_room_for_the_new_guests);
 						return true;
 					}
-			}
+				default:std::cout <<  "Invalid option! The reservation was rejected!\n" << std::endl;
+			} 
  		}
 		
 	}
@@ -409,5 +416,4 @@ void read_a_command(String& command)
 	command.tolower();
 	return;
 }
-
 
