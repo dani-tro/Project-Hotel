@@ -14,7 +14,6 @@ void String::resize(size_t increment)
 	char* copy = new char[get_size() + increment + 1];
 	if (data != nullptr)strcpy(copy, data);
 	copy[get_size()] = '\0';
-	delete[] data;
 	set_data(copy);
 	set_size(get_size() + increment);
 }
@@ -32,7 +31,7 @@ String::String(const String& other)
 		strcpy(data, other.get_data());
 		data[other.get_size()] = '\0';
 	}
-	else set_data(nullptr);
+	else data = nullptr;
 	set_size(other.get_size());
 }
 
@@ -58,6 +57,7 @@ void String::set_size(size_t _size)
 
 void String::set_data(char* _data)
 {
+	delete[] data;
 	data = _data;
 }
 

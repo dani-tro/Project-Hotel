@@ -50,8 +50,16 @@ Time_Period intersect(const Time_Period& lhs, const Time_Period& rhs)
 	else from = lhs.get_from();
 	if (lhs.get_to() < rhs.get_to())to = lhs.get_to();
 	else to = rhs.get_to();
-	Time_Period intersection{ from, to };
-	std::cout << intersection.get_from() << " " << intersection.get_to() << " " << rhs.get_from() << " " << rhs.get_to() << std::endl;
+	Time_Period intersection;
+	try
+	{  
+		intersection = Time_Period{ from, to };
+		 
+	}
+	catch (int x)
+	{
+	};
+	
 	return intersection;
 }
 
