@@ -33,6 +33,7 @@ public:
 	uint32_t get_room_number() const;
 	uint32_t get_number_of_beds() const;
 	void add_accommodation_index_to_the_list(int32_t);
+	void remove_accommodation_index_from_the_list(int32_t index);
 	void add_closure_index_to_the_list(int32_t);
 	bool operator<(const Room&) const;
 	bool operator==(const Room&) const;

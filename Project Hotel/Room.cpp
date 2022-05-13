@@ -112,6 +112,14 @@ void Room::add_accommodation_index_to_the_list(int32_t index)
     accommodations_indexes_in_file_list.push_back(index);
 }
 
+void Room::remove_accommodation_index_from_the_list(int32_t value)
+{
+    uint32_t index = 0;
+    while (index < accommodations_indexes_in_file_list.get_size() &&
+        accommodations_indexes_in_file_list[index] != value)index++;
+    accommodations_indexes_in_file_list.remove_value_at(index);
+}
+
 void Room::add_closure_index_to_the_list(int32_t index)
 {
     closures_indexes_in_file_list.push_back(index);
