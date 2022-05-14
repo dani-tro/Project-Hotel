@@ -130,7 +130,7 @@ std::istream& operator>>(std::istream& in, Date& date)
 {
 	uint32_t day, month, year;
 	char buff;
-	in >> day >> buff >> month >> buff >> year;
+	in >> year >> buff >> month >> buff >> day;
 	in.get();
 	try
 	{
@@ -146,7 +146,11 @@ std::istream& operator>>(std::istream& in, Date& date)
 
 std::ostream& operator<<(std::ostream& out, const Date& date)
 {
-	out << date.get_day() << "." << date.get_month() << "." << date.get_year();
+	out << date.get_year() << "-";
+	if (date.get_month() < 10) out << "0";
+	out << date.get_month() << "-";
+	if (date.get_day() < 10)out << "0";
+	out << date.get_day();
 	return out;
 }
 
