@@ -28,7 +28,7 @@ void Time_Period::set_to(const Date& _to)
 uint32_t Time_Period::duration() const
 {
 	if (get_to() < get_from()) return 0;
-	return get_to() - get_from();
+	return get_to() - get_from() + 1;
 }
 
 void Time_Period::read_period_from_file(std::fstream& file, int position)
@@ -59,7 +59,6 @@ Time_Period intersect(const Time_Period& lhs, const Time_Period& rhs)
 	catch (int x)
 	{
 	};
-	
 	return intersection;
 }
 

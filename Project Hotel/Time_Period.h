@@ -6,8 +6,8 @@
 class Time_Period
 {
 private:
-	Date from{01, 01, 1950};
-	Date to{02, 01, 1950};
+	Date from{02, 01, 1950};
+	Date to{01, 01, 1950};
 public:
 	Time_Period() = default;
 	Time_Period(const Date&, const Date&);
