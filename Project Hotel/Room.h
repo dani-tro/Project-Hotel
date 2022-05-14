@@ -26,6 +26,7 @@ public:
 	int32_t is_closed_during(const Time_Period&, std::fstream&) const;
 	int32_t is_occupied_on(const Date&, std::fstream&) const;
 	int32_t is_occupied_during(const Time_Period&, std::fstream&) const;
+	uint32_t number_of_accommodations_during(const Time_Period&, std::fstream&) const;
 	Condition is_available_on(const Date&, std::fstream&) const;
 	Condition is_available_during(const Time_Period&, std::fstream&) const;
 	uint32_t number_of_days_being_occupied_in_period(const Time_Period&, std::fstream&);

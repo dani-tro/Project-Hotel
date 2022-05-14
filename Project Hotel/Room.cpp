@@ -59,6 +59,21 @@ int32_t Room::is_occupied_during(const Time_Period& period, std::fstream& file) 
     return -1;
 }
 
+uint32_t Room::number_of_accommodations_during(const Time_Period& period, std::fstream& file) const
+{
+    uint32_t counter = 0;
+    Accommodation accommodation;
+    uint8_t accommodation_type;
+    for (size_t i = 0; i < accommodations_indexes_in_file_list.get_size(); i++)
+    {
+        file.seekg(accommodations_indexes_in_file_list[i]);
+        file.read(reinterpret_cast<char*>(&accommodation_type), sizeof(uint8_t));
+        accommodation.read_accommodation_from_file(file, file.tellg());
+        if (intersect(accommodation.get_period(), period).duration() > 0)counter++;
+    }
+    return counter;
+}
+
 Condition Room::is_available_on(const Date& date, std::fstream& file) const
 {
     if (is_closed_on(date, file) != -1)return Condition::Closed;
