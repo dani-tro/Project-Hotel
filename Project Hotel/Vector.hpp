@@ -107,7 +107,7 @@ T& Vector<T>::operator[](size_t idx)
 }
 
 template<typename T>
-inline const T& Vector<T>::operator[](size_t idx) const
+const T& Vector<T>::operator[](size_t idx) const
 {
 	assert(idx < get_size() && "Accessing a valid element of the vector!\n");
 	return data[idx];
