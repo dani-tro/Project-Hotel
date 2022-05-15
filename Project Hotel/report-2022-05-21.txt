@@ -1,0 +1,7 @@
+Room #34 was occupied 6 days.
+Room #61 was occupied 5 days.
+Room #41 was occupied 8 days.
+Room #81 was occupied 9 days.
+Room #78 was occupied 10 days.
+Room #62 was occupied 6 days.
+Room #69 was occupied 10 days.
