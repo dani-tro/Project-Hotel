@@ -414,7 +414,7 @@ bool Hotel::is_valid(const Closure& closure)
 			<< " to " << accommodation.get_to() << std::endl;
 		return false;
 	}
-	if (closure_index != -1)
+	else if (closure_index != -1)
 	{
 		Closure closure;
 		uint8_t closure_type;
